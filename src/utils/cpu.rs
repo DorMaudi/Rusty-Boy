@@ -2,9 +2,9 @@
 enum Instruction {
     ADD(AritmaticTarget),
     ADDHL(AritmaticTarget),
+    ADC(AritmaticTarget),
 
     // unimplemented instructions for future use
-    ADC(AritmaticTarget),
     SUB(AritmaticTarget),
     SBC(AritmaticTarget),
     AND(AritmaticTarget),
@@ -213,6 +213,46 @@ impl CPU {
                     }
                 }
             }
+
+            Instruction::ADC(target) => {
+                match target {
+                    AritmaticTarget::A => {
+                        let value = self.registers.a;
+                        let new_value = self.add_c(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::B => {
+                        let value = self.registers.b;
+                        let new_value = self.add_c(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::C => {
+                        let value = self.registers.c;
+                        let new_value = self.add_c(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::D => {
+                        let value = self.registers.d;
+                        let new_value = self.add_c(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::E => {
+                        let value = self.registers.e;
+                        let new_value = self.add_c(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::H => {
+                        let value = self.registers.h;
+                        let new_value = self.add_c(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::L => {
+                        let value = self.registers.l;
+                        let new_value = self.add_c(value);
+                        self.registers.a = new_value;
+                    }
+                }
+            }
         }
     }
 
@@ -226,6 +266,7 @@ impl CPU {
         
         new_value
     }
+
     fn add_hl(&mut self, value: u16) -> u16 {
         let hl = self.registers.get_hl();
         let (new_hl, did_overflow) = hl.overflowing_add(value);
@@ -236,5 +277,18 @@ impl CPU {
         self.registers.f.carry = did_overflow;
         
         new_hl
+    }
+
+    fn add_c(&mut self, value: u8) -> u8 {
+        let carry = if self.registers.f.carry { 1 } else { 0 };
+        let (intermediate_value, did_overflow1) = self.registers.a.overflowing_add(value);
+        let (new_value, did_overflow2) = intermediate_value.overflowing_add(carry);
+        
+        self.registers.f.zero = new_value == 0;
+        self.registers.f.subtract = false;
+        self.registers.f.half_carry = ((self.registers.a & 0xF) + (value & 0xF) + carry) > 0xF;
+        self.registers.f.carry = did_overflow1 || did_overflow2;
+        
+        new_value
     }
 }
