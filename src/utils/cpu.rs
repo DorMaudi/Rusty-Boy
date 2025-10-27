@@ -5,14 +5,14 @@ enum Instruction {
     ADC(AritmaticTarget),
     SUB(AritmaticTarget),
     SBC(AritmaticTarget),
-
-    // unimplemented instructions for future use
     AND(AritmaticTarget),
     OR(AritmaticTarget),
     XOR(AritmaticTarget),
     CP(AritmaticTarget),
     INC(AritmaticTarget),
     DEC(AritmaticTarget),
+
+    // unimplemented instructions for future use
     CCF(AritmaticTarget),
     SCF(AritmaticTarget),
     RRA(AritmaticTarget),
@@ -134,6 +134,7 @@ impl Registers {
 impl CPU {
     fn execute(&mut self, instruction: Instruction) {
         match instruction {
+
             Instruction::ADD(target) => {
                 match target {
                     AritmaticTarget::A => {
@@ -333,6 +334,239 @@ impl CPU {
                     }
                 }
             }
+
+            Instruction::AND(target) => {
+                match target {
+                    AritmaticTarget::A => {
+                        let value = self.registers.a;
+                        let new_value = self.and(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::B => {
+                        let value = self.registers.b;
+                        let new_value = self.and(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::C => {
+                        let value = self.registers.c;
+                        let new_value = self.and(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::D => {
+                        let value = self.registers.d;
+                        let new_value = self.and(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::E => {
+                        let value = self.registers.e;
+                        let new_value = self.and(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::H => {
+                        let value = self.registers.h;
+                        let new_value = self.and(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::L => {
+                        let value = self.registers.l;
+                        let new_value = self.and(value);
+                        self.registers.a = new_value;
+                    }
+                }
+            }
+
+            Instruction::OR(target) => {
+                match target {
+                    AritmaticTarget::A => {
+                        let value = self.registers.a;
+                        let new_value = self.or(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::B => {
+                        let value = self.registers.b;
+                        let new_value = self.or(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::C => {
+                        let value = self.registers.c;
+                        let new_value = self.or(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::D => {
+                        let value = self.registers.d;
+                        let new_value = self.or(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::E => {
+                        let value = self.registers.e;
+                        let new_value = self.or(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::H => {
+                        let value = self.registers.h;
+                        let new_value = self.or(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::L => {
+                        let value = self.registers.l;
+                        let new_value = self.or(value);
+                        self.registers.a = new_value;
+                    }
+                }
+            }
+
+            Instruction::XOR(target) => {
+                match target {
+                    AritmaticTarget::A => {
+                        let value = self.registers.a;
+                        let new_value = self.xor(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::B => {
+                        let value = self.registers.b;
+                        let new_value = self.xor(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::C => {
+                        let value = self.registers.c;
+                        let new_value = self.xor(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::D => {
+                        let value = self.registers.d;
+                        let new_value = self.xor(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::E => {
+                        let value = self.registers.e;
+                        let new_value = self.xor(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::H => {
+                        let value = self.registers.h;
+                        let new_value = self.xor(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::L => {
+                        let value = self.registers.l;
+                        let new_value = self.xor(value);
+                        self.registers.a = new_value;
+                    }
+                }
+            }
+
+            Instruction::CP(target) => {
+                match target {
+                    AritmaticTarget::A => {
+                        let value = self.registers.a;
+                        self.cp(value);
+                    }
+                    AritmaticTarget::B => {
+                        let value = self.registers.b;
+                        self.cp(value);
+                    }
+                    AritmaticTarget::C => {
+                        let value = self.registers.c;
+                        self.cp(value);
+                    }
+                    AritmaticTarget::D => {
+                        let value = self.registers.d;
+                        self.cp(value);
+                    }
+                    AritmaticTarget::E => {
+                        let value = self.registers.e;
+                        self.cp(value);
+                    }
+                    AritmaticTarget::H => {
+                        let value = self.registers.h;
+                        self.cp(value);
+                    }
+                    AritmaticTarget::L => {
+                        let value = self.registers.l;
+                        self.cp(value);
+                    }
+                }
+            }
+
+            Instruction::INC(target) => {
+                match target {
+                    AritmaticTarget::A => {
+                        let value = self.registers.a;
+                        let new_value = self.inc(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::B => {
+                        let value = self.registers.b;
+                        let new_value = self.inc(value);
+                        self.registers.b = new_value;
+                    }
+                    AritmaticTarget::C => {
+                        let value = self.registers.c;
+                        let new_value = self.inc(value);
+                        self.registers.c = new_value;
+                    }
+                    AritmaticTarget::D => {
+                        let value = self.registers.d;
+                        let new_value = self.inc(value);
+                        self.registers.d = new_value;
+                    }
+                    AritmaticTarget::E => {
+                        let value = self.registers.e;
+                        let new_value = self.inc(value);
+                        self.registers.e = new_value;
+                    }
+                    AritmaticTarget::H => {
+                        let value = self.registers.h;
+                        let new_value = self.inc(value);
+                        self.registers.h = new_value;
+                    }
+                    AritmaticTarget::L => {
+                        let value = self.registers.l;
+                        let new_value = self.inc(value);
+                        self.registers.l = new_value;
+                    }
+                }
+            }
+
+            Instruction::DEC(target) => {
+                match target {
+                    AritmaticTarget::A => {
+                        let value = self.registers.a;
+                        let new_value = self.dec(value);
+                        self.registers.a = new_value;
+                    }
+                    AritmaticTarget::B => {
+                        let value = self.registers.b;
+                        let new_value = self.dec(value);
+                        self.registers.b = new_value;
+                    }
+                    AritmaticTarget::C => {
+                        let value = self.registers.c;
+                        let new_value = self.dec(value);
+                        self.registers.c = new_value;
+                    }
+                    AritmaticTarget::D => {
+                        let value = self.registers.d;
+                        let new_value = self.dec(value);
+                        self.registers.d = new_value;
+                    }
+                    AritmaticTarget::E => {
+                        let value = self.registers.e;
+                        let new_value = self.dec(value);
+                        self.registers.e = new_value;
+                    }
+                    AritmaticTarget::H => {
+                        let value = self.registers.h;
+                        let new_value = self.dec(value);
+                        self.registers.h = new_value;
+                    }
+                    AritmaticTarget::L => {
+                        let value = self.registers.l;
+                        let new_value = self.dec(value);
+                        self.registers.l = new_value;
+                    }
+                }
+            }
         }
     }
 
@@ -392,6 +626,68 @@ impl CPU {
         self.registers.f.subtract = true;
         self.registers.f.half_carry = (self.registers.a & 0xF) < ((value & 0xF) + carry);
         self.registers.f.carry = did_overflow1 || did_overflow2;
+        
+        new_value
+    }
+
+    fn and(&mut self, value: u8) -> u8 {
+        let new_value = self.registers.a & value;
+        
+        self.registers.f.zero = new_value == 0;
+        self.registers.f.subtract = false;
+        self.registers.f.half_carry = true;
+        self.registers.f.carry = false;
+        
+        new_value
+    }
+
+    fn or(&mut self, value: u8) -> u8 {
+        let new_value = self.registers.a | value;
+        
+        self.registers.f.zero = new_value == 0;
+        self.registers.f.subtract = false;
+        self.registers.f.half_carry = false;
+        self.registers.f.carry = false;
+        
+        new_value
+    }
+
+    fn xor(&mut self, value: u8) -> u8 {
+        let new_value = self.registers.a ^ value;
+        
+        self.registers.f.zero = new_value == 0;
+        self.registers.f.subtract = false;
+        self.registers.f.half_carry = false;
+        self.registers.f.carry = false;
+        
+        new_value
+    }
+
+    fn cp(&mut self, value: u8) {
+        let (result, did_overflow) = self.registers.a.overflowing_sub(value);
+        
+        self.registers.f.zero = result == 0;
+        self.registers.f.subtract = true;
+        self.registers.f.half_carry = (self.registers.a & 0xF) < (value & 0xF);
+        self.registers.f.carry = did_overflow;
+    }
+
+    fn inc(&mut self, value: u8) -> u8 {
+        let (new_value, did_overflow) = value.overflowing_add(1);
+        
+        self.registers.f.zero = new_value == 0;
+        self.registers.f.subtract = false;
+        self.registers.f.half_carry = (value & 0xF) + 1 > 0xF;
+        
+        new_value
+    }
+
+    fn dec(&mut self, value: u8) -> u8 {
+        let (new_value, did_overflow) = value.overflowing_sub(1);
+        
+        self.registers.f.zero = new_value == 0;
+        self.registers.f.subtract = true;
+        self.registers.f.half_carry = (value & 0xF) == 0;
         
         new_value
     }
