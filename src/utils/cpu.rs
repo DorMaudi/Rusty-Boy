@@ -577,7 +577,7 @@ impl CPU {
                     AritmaticTarget::E |
                     AritmaticTarget::H |
                     AritmaticTarget::L => {
-                        self.cff();
+                        self.ccf();
                     }
                 }
             }
@@ -706,8 +706,9 @@ impl CPU {
         new_value
     }
 
-    fn cff(&mut self) {
+    fn ccf(&mut self) {
         self.registers.f.subtract = false;
+        self.registers.f.half_carry = false;
         self.registers.f.carry = !self.registers.f.carry;
     }
 }
