@@ -11,9 +11,9 @@ enum Instruction {
     CP(AritmaticTarget),
     INC(AritmaticTarget),
     DEC(AritmaticTarget),
+    CCF(AritmaticTarget),
 
     // unimplemented instructions for future use
-    CCF(AritmaticTarget),
     SCF(AritmaticTarget),
     RRA(AritmaticTarget),
     RLA(AritmaticTarget),
@@ -567,6 +567,20 @@ impl CPU {
                     }
                 }
             }
+
+            Instruction::CCF(target) => {
+                match target {
+                    AritmaticTarget::A |
+                    AritmaticTarget::B |
+                    AritmaticTarget::C |
+                    AritmaticTarget::D |
+                    AritmaticTarget::E |
+                    AritmaticTarget::H |
+                    AritmaticTarget::L => {
+                        self.cff();
+                    }
+                }
+            }
         }
     }
 
@@ -690,5 +704,10 @@ impl CPU {
         self.registers.f.half_carry = (value & 0xF) == 0;
         
         new_value
+    }
+
+    fn cff(&mut self) {
+        self.registers.f.subtract = false;
+        self.registers.f.carry = !self.registers.f.carry;
     }
 }
