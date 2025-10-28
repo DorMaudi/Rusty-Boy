@@ -12,9 +12,9 @@ enum Instruction {
     INC(AritmaticTarget),
     DEC(AritmaticTarget),
     CCF(AritmaticTarget),
+    SCF(AritmaticTarget),
 
     // unimplemented instructions for future use
-    SCF(AritmaticTarget),
     RRA(AritmaticTarget),
     RLA(AritmaticTarget),
     RRCA(AritmaticTarget),
@@ -581,6 +581,90 @@ impl CPU {
                     }
                 }
             }
+
+            Instruction::SCF(target) => {
+                match target {
+                    AritmaticTarget::A |
+                    AritmaticTarget::B |
+                    AritmaticTarget::C |
+                    AritmaticTarget::D |
+                    AritmaticTarget::E |
+                    AritmaticTarget::H |
+                    AritmaticTarget::L => {
+                        self.scf();
+                    }
+                }
+            }
+
+            Instruction::RRA(target) => {
+                match target {
+                    AritmaticTarget::A |
+                    AritmaticTarget::B |
+                    AritmaticTarget::C |
+                    AritmaticTarget::D |
+                    AritmaticTarget::E |
+                    AritmaticTarget::H |
+                    AritmaticTarget::L => {
+                        self.rra();
+                    }
+                }
+            }
+
+            Instruction::RLA(target) => {
+                match target {
+                    AritmaticTarget::A |
+                    AritmaticTarget::B |
+                    AritmaticTarget::C |
+                    AritmaticTarget::D |
+                    AritmaticTarget::E |
+                    AritmaticTarget::H |
+                    AritmaticTarget::L => {
+                        self.rla();
+                    }
+                }
+            }
+
+            Instruction::RRCA(target) => {
+                match target {
+                    AritmaticTarget::A |
+                    AritmaticTarget::B |
+                    AritmaticTarget::C |
+                    AritmaticTarget::D |
+                    AritmaticTarget::E |
+                    AritmaticTarget::H |
+                    AritmaticTarget::L => {
+                        self.rrca();
+                    }
+                }
+            }
+
+            Instruction::RRLA(target) => {
+                match target {
+                    AritmaticTarget::A |
+                    AritmaticTarget::B |
+                    AritmaticTarget::C |
+                    AritmaticTarget::D |
+                    AritmaticTarget::E |
+                    AritmaticTarget::H |
+                    AritmaticTarget::L => {
+                        self.rrla();
+                    }
+                }
+            }
+
+            Instruction::CPL(target) => {
+                match target {
+                    AritmaticTarget::A |
+                    AritmaticTarget::B |
+                    AritmaticTarget::C |
+                    AritmaticTarget::D |
+                    AritmaticTarget::E |
+                    AritmaticTarget::H |
+                    AritmaticTarget::L => {
+                        self.cpl();
+                    }
+                }
+            }
         }
     }
 
@@ -710,5 +794,31 @@ impl CPU {
         self.registers.f.subtract = false;
         self.registers.f.half_carry = false;
         self.registers.f.carry = !self.registers.f.carry;
+    }
+
+    fn scf(&mut self) {
+        self.registers.f.subtract = false;
+        self.registers.f.half_carry = false;
+        self.registers.f.carry = true;
+    }
+
+    fn rra(&mut self) {
+        // Implementation for RRA instruction
+    }
+
+    fn rla(&mut self) {
+        // Implementation for RLA instruction
+    }
+
+    fn rrca(&mut self) {
+        // Implementation for RRCA instruction
+    }
+
+    fn rrla(&mut self) {
+        // Implementation for RRLA instruction
+    }
+
+    fn cpl(&mut self) {
+        // Implementation for CPL instruction
     }
 }
